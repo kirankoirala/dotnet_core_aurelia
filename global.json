@@ -1,0 +1,7 @@
+{
+    "projects":[
+        "potato",
+        "potato.business",
+        "potato.tests"
+    ]
+}
