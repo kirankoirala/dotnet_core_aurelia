@@ -16,6 +16,7 @@ define('app',['exports', 'gateway/personGateway'], function (exports, _personGat
     function App() {
       _classCallCheck(this, App);
 
+      this.personGateway = new _personGateway.PersonGateway();
       this.message = 'Hello World!';
       this.persons = [];
       this.getPersons();
@@ -24,11 +25,9 @@ define('app',['exports', 'gateway/personGateway'], function (exports, _personGat
     App.prototype.getPersons = function getPersons() {
       var _this = this;
 
-      debugger;
-      _personGateway.PersonGateway.personList.then(function (data) {
-        _this.persons = data;
+      return this.personGateway.getPersonList().then(function (persons) {
+        _this.persons = persons;
       });
-      console.log(this.persons);
     };
 
     return App;
@@ -101,12 +100,13 @@ define('gateway/personGateway',['exports', 'aurelia-fetch-client'], function (ex
         function PersonGateway() {
             _classCallCheck(this, PersonGateway);
 
+            this.client = new _aureliaFetchClient.HttpClient();
             this.personList = [];
         }
 
         PersonGateway.prototype.getPersonList = function getPersonList() {
-            return _aureliaFetchClient.HttpClient.fetch('http://localhost:5000/api/Values').then(function (response) {
-                personList = responst.json();
+            return this.client.fetch('http://localhost:5000/api/Values').then(function (response) {
+                return response.json();
             });
         };
 
