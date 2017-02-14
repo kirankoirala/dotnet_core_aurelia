@@ -1,5 +1,5 @@
 {
-  "name": "potato.fries",
+  "name": "potato.chips",
   "type": "project:application",
   "platform": {
     "id": "web",
@@ -19,8 +19,8 @@
     "source": "src/**/*.js"
   },
   "markupProcessor": {
-    "id": "minimum",
-    "displayName": "Minimal Minification",
+    "id": "none",
+    "displayName": "None",
     "fileExtension": ".html",
     "source": "src/**/*.html"
   },
@@ -115,6 +115,7 @@
           "aurelia-task-queue",
           "aurelia-templating",
           "aurelia-templating-binding",
+          "aurelia-fetch-client",
           "text",
           {
             "name": "aurelia-templating-resources",

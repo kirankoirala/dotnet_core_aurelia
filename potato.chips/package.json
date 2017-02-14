@@ -1,5 +1,5 @@
 {
-  "name": "potatofries",
+  "name": "potatochips",
   "description": "An Aurelia client application.",
   "version": "0.1.0",
   "repository": {
@@ -44,8 +44,6 @@
     "babel-register": "^6.9.0",
     "gulp-babel": "^6.1.2",
     "gulp-eslint": "^2.0.0",
-    "gulp-htmlmin": "^3.0.0",
-    "html-minifier": "^3.2.3",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^1.0.1",

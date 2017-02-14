@@ -1,5 +1,5 @@
-define('app',["exports", "gateway/person"], function (exports, _person) {
-  "use strict";
+define('app',['exports', 'gateway/personGateway'], function (exports, _personGateway) {
+  'use strict';
 
   Object.defineProperty(exports, "__esModule", {
     value: true
@@ -12,13 +12,27 @@ define('app',["exports", "gateway/person"], function (exports, _person) {
     }
   }
 
-  var App = exports.App = function App() {
-    _classCallCheck(this, App);
+  var App = exports.App = function () {
+    function App() {
+      _classCallCheck(this, App);
 
-    this.message = 'Hello World!';
-    debugger;
-    this.persons = _person.Person.getPersons();
-  };
+      this.message = 'Hello World!';
+      this.persons = [];
+      this.getPersons();
+    }
+
+    App.prototype.getPersons = function getPersons() {
+      var _this = this;
+
+      debugger;
+      _personGateway.PersonGateway.personList.then(function (data) {
+        _this.persons = data;
+      });
+      console.log(this.persons);
+    };
+
+    return App;
+  }();
 });
 define('environment',["exports"], function (exports) {
   "use strict";
@@ -69,12 +83,13 @@ define('main',['exports', './environment'], function (exports, _environment) {
     });
   }
 });
-define('gateway/person',['exports'], function (exports) {
+define('gateway/personGateway',['exports', 'aurelia-fetch-client'], function (exports, _aureliaFetchClient) {
     'use strict';
 
     Object.defineProperty(exports, "__esModule", {
         value: true
     });
+    exports.PersonGateway = undefined;
 
     function _classCallCheck(instance, Constructor) {
         if (!(instance instanceof Constructor)) {
@@ -82,26 +97,20 @@ define('gateway/person',['exports'], function (exports) {
         }
     }
 
-    var Person = exports.Person = function () {
-        function Person() {
-            _classCallCheck(this, Person);
+    var PersonGateway = exports.PersonGateway = function () {
+        function PersonGateway() {
+            _classCallCheck(this, PersonGateway);
 
-            this.persons = [];
-            this.getPersons();
+            this.personList = [];
         }
 
-        Person.prototype.getPersons = function getPersons() {
-            var _this = this;
-
-            httpClient.fetch('localhost:5000/api/values').then(function (response) {
-                return response.json();
-            }).then(function (data) {
-                _this.persons = data;
+        PersonGateway.prototype.getPersonList = function getPersonList() {
+            return _aureliaFetchClient.HttpClient.fetch('http://localhost:5000/api/Values').then(function (response) {
+                personList = responst.json();
             });
-            return null;
         };
 
-        return Person;
+        return PersonGateway;
     }();
 });
 define('resources/index',["exports"], function (exports) {
@@ -113,5 +122,5 @@ define('resources/index',["exports"], function (exports) {
   exports.configure = configure;
   function configure(config) {}
 });
-define('text!app.html', ['module'], function(module) { module.exports = "<template><h1>${message}</h1><ul repeat.for=\"person of persons\"><li>${person}</li></ul></template>"; });
+define('text!app.html', ['module'], function(module) { module.exports = "<template>\n  <h1>${message}</h1>\n  <ul repeat.for=\"person of persons\")>\n      <ul>${person}</ul>\n  </ul> \n</template>\n"; });
 //# sourceMappingURL=app-bundle.js.map
